@@ -1,7 +1,7 @@
 ﻿using System;
-
 using System.Windows;
 using System.Windows.Controls;
+
 
 
 namespace WpfAppAllCode
@@ -35,9 +35,18 @@ namespace WpfAppAllCode
             //mainWindow.Width=300;
             //mainWindow.WindowStartupLocation=WindowStartupLocation.CenterScreen;
             //mainWindow.Show();
-            
-            MainWindow wnd=new MainWindow("My better WPF App",500,700);  
-        
+            Application.Current.Properties["GodMode"]=false;
+            //MainWindow wnd =new MainWindow("My better WPF App",500,700);  
+            foreach(string arg in e.Args)
+            {
+                if(arg.ToLower()=="/godmode")
+                {
+                    Application.Current.Properties["GodMode"]=true;
+                    break;
+                }
+
+            }
+            MainWindow wnd=new MainWindow("My better WPF App",500,200);
             wnd.Show();
 
         }
@@ -61,6 +70,9 @@ namespace WpfAppAllCode
             }
             private void btnExitApp_Clicked(object sender, RoutedEventArgs e)
             {
+                if((bool)Application.Current.Properties["GodMode"])
+                    MessageBox.Show("Cheater!");
+
                this.Close();
             }
            
